@@ -1,6 +1,6 @@
 all: 
 	@echo "Building..."
-	@ghc driver.hs
+	cabal exec ghc -- --make -O2 driver.hs
 	@if [ ! -e 'data' ]; then mkdir data; for i in  {1..3000}; do cp template.txt data/$$i.xml ; done; fi
 	@echo "Done"
 
