@@ -1,5 +1,6 @@
 module Main (main) where
 
+import Data.List (isSuffixOf)
 import Control.Monad
 import qualified System.Directory as D
 
@@ -15,7 +16,7 @@ getBugs :: IO [Int]
 getBugs = do
         files <- D.getDirectoryContents outputDir
         let xmlFiles = map (\n -> outputDir ++ "/" ++ n) $
-                       filter (\n -> (reverse . take 4 . reverse) n == rawExt) files
+                       filter (isSuffixOf rawExt) files
         forM xmlFiles $ \n -> do
             str <- BSL.readFile n
             let l = processFileContent str
